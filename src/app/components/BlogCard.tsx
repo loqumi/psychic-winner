@@ -1,7 +1,8 @@
+import React from 'react';
 import Link from "next/link";
 import Image from "next/image";
-import { Post } from "@/app/types/types";
-import imageLoader from "@/app/image/loader";
+import { Post } from "../types/types";
+import imageLoader from "../image/loader";
 
 export default function BlogCard({ post }: { post: Post }) {
     return (
