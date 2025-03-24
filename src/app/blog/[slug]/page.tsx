@@ -1,24 +1,30 @@
+import React from 'react';
 import Image from 'next/image';
-import { Post } from "@/app/types/types";
+import { Post } from "../../types/types";
 import { notFound } from 'next/navigation';
-import imageLoader from "@/app/image/loader";
-import { API_URL } from "@/app/utils/apiUtils";
-import { enhancePost } from "@/app/utils/postUtils";
+import imageLoader from "../../image/loader";
+import { API_URL } from "../../utils/apiUtils";
+import { enhancePost } from "../../utils/postUtils";
 
 export async function generateStaticParams() {
-    const response = await fetch(`${API_URL}/posts`);
-    const posts: Post[] = await response.json();
+    try {
+        const response = await fetch(`${API_URL}/posts`);
+        const posts: Post[] = await response.json();
 
-    return posts.map((post) => ({
-        slug: encodeURIComponent(post.title.toLowerCase().replace(/ /g, '-')),
-    }));
+        return posts.map((post) => ({
+            slug: encodeURIComponent(post.title.toLowerCase().replace(/ /g, '-')),
+        }));
+    } catch (error) {
+        console.error('Failed to fetch posts for static params:', error);
+        return [];
+    }
 }
 
 type PageProps = {
     params: Promise<{ slug: string }>;
 };
 
-async function getPost(slug: string): Promise<Post | null> {
+export async function getPost(slug: string): Promise<Post | null> {
     try {
         const response = await fetch(`${API_URL}/posts`);
         const allPosts = await response.json();
