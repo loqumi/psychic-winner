@@ -1,12 +1,16 @@
 'use client';
-import { useState } from 'react';
 import { useDebounce } from 'use-debounce';
+import { useEffect, useState } from 'react';
+import { useBlogStore } from '../stores/blogStore';
 
 export default function SearchBar() {
     const [localQuery, setLocalQuery] = useState('');
     const [debouncedQuery] = useDebounce(localQuery, 300);
+    const { setSearchQuery } = useBlogStore();
 
-    console.log(debouncedQuery);
+    useEffect(() => {
+        setSearchQuery(debouncedQuery);
+    }, [setSearchQuery,debouncedQuery]);
 
     return (
         <div className="mb-8">

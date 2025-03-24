@@ -8,3 +8,16 @@ export interface Post {
     author: string;
     date: string;
 }
+
+export interface BlogState {
+    posts: Post[];
+    filteredPosts: Post[];
+    searchQuery: string;
+    page: number;
+    isLoading: boolean;
+    error: string | null;
+    initializePosts: (posts: Post[]) => void;
+    fetchPosts: (page?: number) => Promise<void>;
+    setSearchQuery: (query: string) => void;
+    loadMorePosts: () => Promise<void>;
+}

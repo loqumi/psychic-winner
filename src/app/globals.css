@@ -5,6 +5,8 @@
     --foreground: #171717;
     --card: #ffffff;
     --card-foreground: #171717;
+    --button-background: #171717;
+    --button-text: #ffffff;
     --font-sans: Arial, Helvetica, sans-serif;
     --font-mono: monospace;
 }
@@ -14,6 +16,8 @@
     --foreground: #ededed;
     --card: #1a1a1a;
     --card-foreground: #f5f5f5;
+    --button-background: #ededed;
+    --button-text: #0a0a0a;
 }
 
 body {
@@ -29,4 +33,11 @@ body {
 .card {
     background-color: var(--card);
     color: var(--card-foreground);
+}
+
+.button {
+    cursor: pointer;
+    transition: opacity 0.3s;
+    background-color: var(--button-background);
+    color: var(--button-text);
 }
