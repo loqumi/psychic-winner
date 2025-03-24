@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Post } from "@/app/types/types";
+import imageLoader from "@/app/image/loader";
 
 export default function BlogCard({ post }: { post: Post }) {
     return (
@@ -8,6 +9,7 @@ export default function BlogCard({ post }: { post: Post }) {
             <Link href={`/blog/${post.slug}`} className="block">
                 <div className="relative h-48 mb-4 rounded-lg overflow-hidden">
                     <Image
+                        loader={imageLoader}
                         src={post.imageUrl || '/placeholder.jpg'}
                         alt={post.title}
                         fill

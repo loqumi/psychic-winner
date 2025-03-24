@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { Post } from "@/app/types/types";
 import { notFound } from 'next/navigation';
+import imageLoader from "@/app/image/loader";
 import { API_URL } from "@/app/utils/apiUtils";
 import { enhancePost } from "@/app/utils/postUtils";
 
@@ -45,6 +46,7 @@ export default async function BlogPost({ params }: PageProps) {
             {post.imageUrl && (
                 <div className="mb-8 rounded-lg overflow-hidden">
                     <Image
+                        loader={imageLoader}
                         src={post.imageUrl}
                         alt={post.title}
                         width={800}
