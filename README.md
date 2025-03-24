@@ -36,6 +36,11 @@ npm i && npm run start
 ```bash
 npm run start
 ```
+
+6. Для запуска тестов переименуйте tests.babelrc в .babelrc и используйте
+```bash
+npm run test
+```
 Приложение будет доступно по адресу: http://localhost:3000
 
 Используемые библиотеки: next, tailwind, react, zustand, use-debounce

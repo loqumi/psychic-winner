@@ -1,9 +1,22 @@
 import { create } from 'zustand';
-import { BlogState } from "@/app/types/types";
+import { Post } from "@/app/types/types";
 import { API_URL } from "@/app/utils/apiUtils";
 import { enhancePosts } from "@/app/utils/postUtils";
 
-export const useBlogStore = create<BlogState>((set, get) => ({
+interface BlogStore {
+    posts: Post[];
+    filteredPosts: Post[];
+    searchQuery: string;
+    page: number;
+    isLoading: boolean;
+    error: string | null;
+    initializePosts: (posts: Post[]) => void;
+    fetchPosts: (page?: number) => Promise<void>;
+    setSearchQuery: (query: string) => void;
+    loadMorePosts: () => Promise<void>;
+}
+
+export const useBlogStore = create<BlogStore>((set, get) => ({
     posts: [],
     filteredPosts: [],
     searchQuery: '',
