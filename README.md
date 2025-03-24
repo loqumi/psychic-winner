@@ -38,4 +38,4 @@ npm run start
 ```
 Приложение будет доступно по адресу: http://localhost:3000
 
-Используемые библиотеки: framer-motion, uuid, react-window, axios, socket.io-client
+Используемые библиотеки: next, tailwind, react, zustand, use-debounce
