@@ -7,6 +7,7 @@ export interface Post {
     excerpt: string;
     author: string;
     date: string;
+    imageUrl?: string;
 }
 
 export interface BlogState {

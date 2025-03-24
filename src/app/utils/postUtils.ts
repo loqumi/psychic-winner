@@ -21,7 +21,8 @@ export async function enhancePosts(rawPosts: Post[]): Promise<Post[]> {
                 slug: generateSlug(post.title),
                 excerpt: generateExcerpt(post.body),
                 author: user?.name || 'Unknown Author',
-                date: generateRandomDate()
+                date: generateRandomDate(),
+                imageUrl: `https://picsum.photos/800/400?random=${post.id}`
             };
         });
     } catch (error) {
@@ -41,4 +42,26 @@ function generateExcerpt(body: string): string {
 function generateRandomDate(): string {
     const randomOffset = Math.floor(Math.random() * 1000 * 60 * 60 * 24 * 365 * 2);
     return new Date(Date.now() - randomOffset).toISOString();
+}
+
+export async function enhancePost(rawPost: Post): Promise<Post> {
+    try {
+        const user = await fetch(`https://jsonplaceholder.typicode.com/users/${rawPost.userId}`)
+            .then(res => {
+                if (!res.ok) throw new Error(`Failed to fetch user ${rawPost.userId}`);
+                return res.json();
+            });
+
+        return {
+            ...rawPost,
+            slug: generateSlug(rawPost.title),
+            excerpt: generateExcerpt(rawPost.body),
+            author: user?.name || 'Unknown Author',
+            date: generateRandomDate(),
+            imageUrl: `https://picsum.photos/800/400?random=${rawPost.id}`
+        };
+    } catch (error) {
+        console.error('Error enhancing post:', error);
+        throw error;
+    }
 }
