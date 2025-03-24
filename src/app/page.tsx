@@ -1,7 +1,6 @@
 import BlogList from './components/BlogList';
+import { API_URL } from "@/app/utils/apiUtils";
 import { enhancePosts } from './utils/postUtils';
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 async function getInitialPosts() {
     const res = await fetch(`${API_URL}/posts?_page=1&_limit=10`);

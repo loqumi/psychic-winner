@@ -1,8 +1,7 @@
 import { create } from 'zustand';
 import { BlogState } from "@/app/types/types";
+import { API_URL } from "@/app/utils/apiUtils";
 import { enhancePosts } from "@/app/utils/postUtils";
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export const useBlogStore = create<BlogState>((set, get) => ({
     posts: [],

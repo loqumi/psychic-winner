@@ -1,11 +1,12 @@
-import { notFound } from 'next/navigation';
-import { Post } from "@/app/types/types";
 import Image from 'next/image';
+import { Post } from "@/app/types/types";
+import { notFound } from 'next/navigation';
+import { API_URL } from "@/app/utils/apiUtils";
 import { enhancePost } from "@/app/utils/postUtils";
 
 async function getPost(slug: string): Promise<Post | null> {
     try {
-        const allPosts = await fetch('https://jsonplaceholder.typicode.com/posts').then(res => res.json());
+        const allPosts = await fetch(`${API_URL}/posts`).then(res => res.json());
         const rawPost = allPosts.find((p: Post) =>
             encodeURIComponent(p.title.toLowerCase().replace(/ /g, '-')) === slug
         );
