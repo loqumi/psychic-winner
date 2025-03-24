@@ -4,6 +4,15 @@ import { notFound } from 'next/navigation';
 import { API_URL } from "@/app/utils/apiUtils";
 import { enhancePost } from "@/app/utils/postUtils";
 
+export async function generateStaticParams() {
+    const response = await fetch(`${API_URL}/posts`);
+    const posts: Post[] = await response.json();
+
+    return posts.map((post) => ({
+        slug: encodeURIComponent(post.title.toLowerCase().replace(/ /g, '-')),
+    }));
+}
+
 type PageProps = {
     params: Promise<{ slug: string }>;
 };
