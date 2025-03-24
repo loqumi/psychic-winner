@@ -4,9 +4,14 @@ import { notFound } from 'next/navigation';
 import { API_URL } from "@/app/utils/apiUtils";
 import { enhancePost } from "@/app/utils/postUtils";
 
+type PageProps = {
+    params: Promise<{ slug: string }>;
+};
+
 async function getPost(slug: string): Promise<Post | null> {
     try {
-        const allPosts = await fetch(`${API_URL}/posts`).then(res => res.json());
+        const response = await fetch(`${API_URL}/posts`);
+        const allPosts = await response.json();
         const rawPost = allPosts.find((p: Post) =>
             encodeURIComponent(p.title.toLowerCase().replace(/ /g, '-')) === slug
         );
@@ -20,8 +25,9 @@ async function getPost(slug: string): Promise<Post | null> {
     }
 }
 
-export default async function BlogPost({ params }: { params: { slug: string } }) {
-    const post = await getPost(params.slug);
+export default async function BlogPost({ params }: PageProps) {
+    const resolvedParams = await params;
+    const post = await getPost(resolvedParams.slug);
 
     if (!post) notFound();
 
